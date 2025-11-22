@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Value Realization App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; }
         header { background: #007bff; color: white; padding: 15px; font-size: 18px; text-align: center; }
@@ -16,7 +17,9 @@
         th { background: #e8e8e8; }
         .section { margin-bottom: 20px; }
         input[type="text"] { width: 95%; padding: 5px; }
-        .btn-save { margin-top: 10px; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
+        .btn-save, .btn-download { margin-top: 10px; padding: 10px; color: white; border: none; cursor: pointer; }
+        .btn-save { background: #28a745; }
+        .btn-download { background: #007bff; }
     </style>
 </head>
 <body>
@@ -32,35 +35,6 @@
         </div>
 
         <div class="content">
-            <div class="section">
-                <h2>Delivery Manager Value</h2>
-                <table>
-                    <tr>
-                        <th>Customer</th>
-                        <th>CT</th>
-                        <th>Teams</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            1. Current Scope Delivery<br>
-                            - Velocity<br>- Cost<br>- TTM<br>
-                            2. Beyond Scope<br>
-                            Thought Leadership, Engagement, Networking
-                        </td>
-                        <td>
-                            Asset Building for AI Library<br>
-                            Contribute SDLC Pattern Library<br>
-                            Thought Leadership<br>
-                            Scaling Capability
-                        </td>
-                        <td>
-                            Rate Card Increase<br>
-                            Employee Productivity
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
             <div class="section">
                 <h2>My Value Realization Plan</h2>
                 <table id="planTable">
@@ -101,16 +75,15 @@
                     </tr>
                 </table>
                 <button class="btn-save" onclick="saveData()">Save Data</button>
+                <button class="btn-download" onclick="downloadPDF()">Download as PDF</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Set username dynamically
-        const username = "Sanjay Navani"; // Replace with dynamic value if needed
+        const username = "Sanjay Navani";
         document.getElementById('username').innerText = username;
 
-        // Load saved data on page load
         window.onload = function() {
             const fields = document.querySelectorAll('input[type="text"]');
             fields.forEach(field => {
@@ -120,13 +93,34 @@
             });
         };
 
-        // Save data to local storage
         function saveData() {
             const fields = document.querySelectorAll('input[type="text"]');
             fields.forEach(field => {
                 localStorage.setItem(field.id, field.value);
             });
             alert('Data saved successfully!');
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(14);
+            doc.text('My Value Realization Plan', 10, 10);
+
+            let y = 20;
+            const rows = document.querySelectorAll('#planTable tr');
+            rows.forEach((row, index) => {
+                let cols = row.querySelectorAll('td, th');
+                let rowText = [];
+                cols.forEach(col => {
+                    let input = col.querySelector('input');
+                    rowText.push(input ? input.value : col.innerText);
+                });
+                doc.text(rowText.join(' | '), 10, y);
+                y += 10;
+            });
+
+            doc.save('Value_Realization_Plan.pdf');
         }
     </script>
 </body>
