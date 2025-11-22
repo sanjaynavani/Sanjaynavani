@@ -1,5 +1,6 @@
 
-
+<!DOCTYPE html>
+<html>
 <head>
     <title>Value Realization App</title>
     <style>
@@ -15,6 +16,7 @@
         th { background: #e8e8e8; }
         .section { margin-bottom: 20px; }
         input[type="text"] { width: 95%; padding: 5px; }
+        .btn-save { margin-top: 10px; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -71,34 +73,34 @@
                     </tr>
                     <tr>
                         <td>Dec</td>
-                        <td><input type="text" placeholder="Enter Process Maps"></td>
-                        <td><input type="text" placeholder="Enter AI Solutions"></td>
-                        <td><input type="text" placeholder="Enter Customer Engagements"></td>
-                        <td><input type="text" placeholder="Enter Employee Engagements"></td>
+                        <td><input type="text" id="dec-process"></td>
+                        <td><input type="text" id="dec-ai"></td>
+                        <td><input type="text" id="dec-cust"></td>
+                        <td><input type="text" id="dec-emp"></td>
                     </tr>
                     <tr>
                         <td>Jan</td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <td><input type="text" id="jan-process"></td>
+                        <td><input type="text" id="jan-ai"></td>
+                        <td><input type="text" id="jan-cust"></td>
+                        <td><input type="text" id="jan-emp"></td>
                     </tr>
                     <tr>
                         <td>Feb</td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <td><input type="text" id="feb-process"></td>
+                        <td><input type="text" id="feb-ai"></td>
+                        <td><input type="text" id="feb-cust"></td>
+                        <td><input type="text" id="feb-emp"></td>
                     </tr>
                     <tr>
                         <td>Mar</td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
+                        <td><input type="text" id="mar-process"></td>
+                        <td><input type="text" id="mar-ai"></td>
+                        <td><input type="text" id="mar-cust"></td>
+                        <td><input type="text" id="mar-emp"></td>
                     </tr>
                 </table>
-                <button onclick="downloadPlan()">Download Plan</button>
+                <button class="btn-save" onclick="saveData()">Save Data</button>
             </div>
         </div>
     </div>
@@ -108,24 +110,23 @@
         const username = "Sanjay Navani"; // Replace with dynamic value if needed
         document.getElementById('username').innerText = username;
 
-        function downloadPlan() {
-            let table = document.getElementById('planTable');
-            let rows = table.querySelectorAll('tr');
-            let csv = [];
-            rows.forEach(row => {
-                let cols = row.querySelectorAll('td, th');
-                let rowData = [];
-                cols.forEach(col => {
-                    let input = col.querySelector('input');
-                    rowData.push(input ? input.value : col.innerText);
-                });
-                csv.push(rowData.join(','));
+        // Load saved data on page load
+        window.onload = function() {
+            const fields = document.querySelectorAll('input[type="text"]');
+            fields.forEach(field => {
+                if(localStorage.getItem(field.id)) {
+                    field.value = localStorage.getItem(field.id);
+                }
             });
-            let blob = new Blob([csv.join('\\n')], { type: 'text/csv' });
-            let link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'Value_Realization_Plan.csv';
-            link.click();
+        };
+
+        // Save data to local storage
+        function saveData() {
+            const fields = document.querySelectorAll('input[type="text"]');
+            fields.forEach(field => {
+                localStorage.setItem(field.id, field.value);
+            });
+            alert('Data saved successfully!');
         }
     </script>
 </body>
