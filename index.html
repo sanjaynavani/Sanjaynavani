@@ -1,10 +1,11 @@
 
-<!DOCTYPE html>
-<html>
+
 <head>
     <title>Value Realization App</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; margin: 0; }
+        body { font-family: Arial, sans-serif; margin: 0; }
+        header { background: #007bff; color: white; padding: 15px; font-size: 18px; text-align: center; }
+        .container { display: flex; }
         .sidebar { width: 20%; background: #f4f4f4; padding: 20px; }
         .sidebar button { display: block; width: 100%; margin: 10px 0; padding: 10px; font-size: 14px; }
         .content { width: 80%; padding: 20px; }
@@ -13,74 +14,100 @@
         th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
         th { background: #e8e8e8; }
         .section { margin-bottom: 20px; }
+        input[type="text"] { width: 95%; padding: 5px; }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <button onclick="alert('AS-IS Activities Analysis')">AS-IS activities value analysis</button>
-        <button onclick="alert('To-Be Activities Mapping')">To-Be activities mapping</button>
-        <button onclick="alert('Future Ready Skills')">Future Ready New Skill Needs</button>
-        <button onclick="alert('Assistant & Tools')">Assistant and Tools</button>
-    </div>
+    <header>
+        Welcome, <span id="username">User</span>
+    </header>
 
-    <div class="content">
-        <div class="section">
-            <h2>Delivery Manager Value</h2>
-            <table>
-                <tr>
-                    <th>Customer</th>
-                    <th>CT</th>
-                    <th>Teams</th>
-                </tr>
-                <tr>
-                    <td>
-                        1. Current Scope Delivery<br>
-                        - Velocity<br>- Cost<br>- TTM<br>
-                        2. Beyond Scope<br>
-                        Thought Leadership, Engagement, Networking
-                    </td>
-                    <td>
-                        Asset Building for AI Library<br>
-                        Contribute SDLC Pattern Library<br>
-                        Thought Leadership<br>
-                        Scaling Capability
-                    </td>
-                    <td>
-                        Rate Card Increase<br>
-                        Employee Productivity
-                    </td>
-                </tr>
-            </table>
+    <div class="container">
+        <div class="sidebar">
+            <button onclick="alert('AS-IS Activities Analysis')">AS-IS activities value analysis</button>
+            <button onclick="alert('To-Be Activities Mapping')">To-Be activities mapping</button>
+            <button onclick="alert('Future Ready Skills')">Future Ready New Skill Needs</button>
         </div>
 
-        <div class="section">
-            <h2>My Value Realization Plan</h2>
-            <table id="planTable">
-                <tr>
-                    <th>Timeline</th>
-                    <th>Process Maps</th>
-                    <th>AI Solutions</th>
-                    <th>Customer Engagements</th>
-                    <th>Employee Engagements</th>
-                </tr>
-                <tr>
-                    <td>Dec</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Jan</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Feb</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Mar</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
-                </tr>
-            </table>
-            <button onclick="downloadPlan()">Download Plan</button>
+        <div class="content">
+            <div class="section">
+                <h2>Delivery Manager Value</h2>
+                <table>
+                    <tr>
+                        <th>Customer</th>
+                        <th>CT</th>
+                        <th>Teams</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            1. Current Scope Delivery<br>
+                            - Velocity<br>- Cost<br>- TTM<br>
+                            2. Beyond Scope<br>
+                            Thought Leadership, Engagement, Networking
+                        </td>
+                        <td>
+                            Asset Building for AI Library<br>
+                            Contribute SDLC Pattern Library<br>
+                            Thought Leadership<br>
+                            Scaling Capability
+                        </td>
+                        <td>
+                            Rate Card Increase<br>
+                            Employee Productivity
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>My Value Realization Plan</h2>
+                <table id="planTable">
+                    <tr>
+                        <th>Timeline</th>
+                        <th>Process Maps</th>
+                        <th>AI Solutions</th>
+                        <th>Customer Engagements</th>
+                        <th>Employee Engagements</th>
+                    </tr>
+                    <tr>
+                        <td>Dec</td>
+                        <td><input type="text" placeholder="Enter Process Maps"></td>
+                        <td><input type="text" placeholder="Enter AI Solutions"></td>
+                        <td><input type="text" placeholder="Enter Customer Engagements"></td>
+                        <td><input type="text" placeholder="Enter Employee Engagements"></td>
+                    </tr>
+                    <tr>
+                        <td>Jan</td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>Feb</td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td>Mar</td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                </table>
+                <button onclick="downloadPlan()">Download Plan</button>
+            </div>
         </div>
     </div>
 
     <script>
+        // Set username dynamically
+        const username = "Sanjay Navani"; // Replace with dynamic value if needed
+        document.getElementById('username').innerText = username;
+
         function downloadPlan() {
             let table = document.getElementById('planTable');
             let rows = table.querySelectorAll('tr');
@@ -88,14 +115,19 @@
             rows.forEach(row => {
                 let cols = row.querySelectorAll('td, th');
                 let rowData = [];
-                cols.forEach(col => rowData.push(col.innerText));
+                cols.forEach(col => {
+                    let input = col.querySelector('input');
+                    rowData.push(input ? input.value : col.innerText);
+                });
                 csv.push(rowData.join(','));
             });
             let blob = new Blob([csv.join('\\n')], { type: 'text/csv' });
             let link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
+            link.download = 'Value_Realization_Plan.csv';
             link.click();
         }
     </script>
 </body>
 </html>
+
